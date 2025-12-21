@@ -748,17 +748,19 @@ int BackgroundModule::background_init() {
 
   // GFA, error message to check that decays are non-relativistic, comment this if necessary
   // It is included here (rather than in the input module) to avoid MontePython to crash (we just want to reject the point)
-  if (ncdm_->N_ncdm_decay_dr_ > 0) {
-    double Gamma_nu = ncdm_->decay_dr_map_[ncdm_->N_ncdm_standard_+0].Gamma;
-    double mass_parent_eV = ncdm_->GetMassInElectronvolt(ncdm_->N_ncdm_standard_+0);
-    double T0_nu = 0.71611; //equal to T_ncdm_default_
-    double H_at_znr = pba->H0*sqrt(pba->Omega0_cdm+pba->Omega0_b)*pow(mass_parent_eV/(3.0*T0_nu*pba->T_cmb*_k_B_/_eV_),3./2.);
-    if ((pba->has_ncdm_decay_dr_ncdm == _TRUE_) && (pba->is_ncdm_decay_degenerate == _TRUE_) && (pba->nu_hierarchy == normal)) {
-      H_at_znr *= (1./2.);   // Notice that in scenario B1, lifetimes is computed as 1/(2*Gamma), to account for the two decay modes of the parent neutrino
+  if (pba->has_ncdm == _TRUE_) {
+    if (ncdm_->N_ncdm_decay_dr_ > 0) {
+      double Gamma_nu = ncdm_->decay_dr_map_[ncdm_->N_ncdm_standard_+0].Gamma;
+      double mass_parent_eV = ncdm_->GetMassInElectronvolt(ncdm_->N_ncdm_standard_+0);
+      double T0_nu = 0.71611; //equal to T_ncdm_default_
+      double H_at_znr = pba->H0*sqrt(pba->Omega0_cdm+pba->Omega0_b)*pow(mass_parent_eV/(3.0*T0_nu*pba->T_cmb*_k_B_/_eV_),3./2.);
+      if ((pba->has_ncdm_decay_dr_ncdm == _TRUE_) && (pba->is_ncdm_decay_degenerate == _TRUE_) && (pba->nu_hierarchy == normal)) {
+        H_at_znr *= (1./2.);   // Notice that in scenario B1, lifetimes is computed as 1/(2*Gamma), to account for the two decay modes of the parent neutrino
+      }
+      class_test(Gamma_nu > H_at_znr,
+                 error_message_,
+                 "Gamma_nu = %e km/s/Mpc is larger than H(z_nr) =%e km/s/Mpc \n",Gamma_nu*(_c_/1.e3), H_at_znr*(_c_/1.e3) );
     }
-    class_test(Gamma_nu > H_at_znr,
-               error_message_,
-               "Gamma_nu = %e km/s/Mpc is larger than H(z_nr) =%e km/s/Mpc \n",Gamma_nu*(_c_/1.e3), H_at_znr*(_c_/1.e3) );
   }
 
 
