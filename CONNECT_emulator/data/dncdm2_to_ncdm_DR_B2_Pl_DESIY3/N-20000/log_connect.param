@@ -1,0 +1,179 @@
+# Parameter file for the example model
+
+# Specify the parameters for the model, their minimum value and their maximum value
+# (as you would in CLASS) 
+#
+#           | name                    | min-value     | max-value      |
+#           |-------------------------|---------------|----------------|
+parameters={'omega_b'                 :  [ 0.014,          0.039          ],
+            'omega_cdm'               :  [ 1e-11,          0.25           ],
+            'H0'                      :  [ 30,             120            ],
+            'ln10^{10}A_s'            :  [ 1,              5              ],
+            'n_s'                     :  [ 0.7,            1.3            ],
+            'tau_reio'                :  [ 0.01,           0.4            ],
+            'm_ncdm_lightest'         :  [ 0.0001,         0.6            ],
+            'log10Gamma_nu'           :  [ 2.8,            5.5            ]}
+
+# Specify additional parameters
+
+
+#########--------- Training parameters ---------#########
+
+train_ratio          = 0.95		  # Amount of data used for training
+                                          # (rest is used for testing)
+
+val_ratio            = 0.05	      	  # Amount of training data used for validation
+
+epochs               = 5000	      	  # Number of cycles/epochs during training
+#NOTE, for extended models it might be better to increase this (e.g. 300 or 500 epochs)
+
+batchsize            = 512	          # Batchsize of data when training
+
+activation_function  = 'alsing'	          # Activation function - as defined in TensorFlow
+                                          # or source/custom_functions.py
+
+loss_function        = 'cosmic_variance'  # Loss function - as defined in TensorFlow
+                                          # or source/custom_functions.py
+
+N_hidden_layers      = 6                  # Number of hidden layers in fully-connected
+                                          # architecture
+
+N_nodes	             = 512	          # Number of nodes in each hidden layer
+
+normalisation_method = 'standardisation'  # Normalisation method for output data
+
+
+#########--------- Sampling parameters ---------#########
+
+#N = 2.5e+4       # Amount of points in lhc. When using the iterative method this number refers to only the initial lhc
+N = 2e+4       
+#NOTE, I think initial sampling by default is actually hypersphere, not lhc
+# and in case of hypersphere (passing covmat), it seems ok to reduce N to 1e3
+ 
+#output_Cl      = ['tt', 'te', 'ee']         # Cl spectra in output
+output_Cl      = ['tt', 'te', 'ee', 'pp']         # Cl spectra in output
+#NOTE: one can also emulate lensing spectra 'pp', since Connect activates flag 'lensing':'yes' by default
+
+#output_Pk      = ['pk','pk_cb']            # Matter power spectra in output
+#z_Pk_list      = [0.0, 1.5, 13.65]	    # z-values for matter power spectra
+
+output_bg      = ['ang.diam.dist.',         # Background functions in output
+	          'conf. time [Mpc]',
+	          'H [1/Mpc]'
+		  ]
+
+#z_bg_list      = [0.35, 0.57, 0.106]        # Optional list of z-values for background
+#NOTE: if this is not selected, the default considers 100 evenly z-values in log space
+#I tried this but it leads to a huge test loss, I guess training for such a large z-vector is complicated
+#Best option is probably to select z-values of the corresponding BAO data that will be used later for MCMC
+z_bg_list      = [0.30, 0.51, 0.71, 0.93, 1.32, 1.48, 2.33] # z values of DESI BAO measurements
+
+#output_th      = ['w_b',                    # Thermodynamics functions in output
+#	          'tau_d'
+#		  ]
+#z_th_list      = [0.35, 0.57, 0.106]        # Optional list of z-values	for thermodynamics
+
+output_derived = ['z_reio',                 # Derived parameters in output
+		  'Omega_Lambda', 
+		  'YHe', 
+		  'A_s', 
+		  'sigma8', 
+		  'Mnu_tot'
+		  ]
+
+extra_output   = {'rs_drag': 'cosmo.rs_drag()'}  # Additional output {name: string of code}
+#NOTE: rs_drag is also needed for BAO data 
+
+extra_input    = {'k_pivot':0.05,                # Extra input to CLASS
+                  'sBBN file':'/home/abellan/class_repositories/CLASSpp_public_modified/bbn/sBBN.dat',
+		  'N_ur':0.00641,
+		  'N_ncdm_decay_dr': 2,
+                  'deg_ncdm_decay_dr': '2.0, 1.0',
+                  'has_ncdm_decay_dr_ncdm': 'yes',
+                  'is_ncdm_decay_degenerate': 'yes',
+                  'neutrino_hierarchy': 'inverted',
+                  'decay_mass_gap':'atmospheric',
+                  'l_max_ncdm': 17,
+                  'l_max_dr': '17, 17',
+                  'quadrature_strategy_ncdm_decay_dr': '3, 3',
+                  'maximum_q_ncdm_decay_dr': '20, 20',
+                  'N_momentum_bins_ncdm_decay_dr': '20, 20',
+                  'ncdm_fluid_approximation': 3,
+                  'adjust_q_binning':'yes',
+                  'P_k_max_h/Mpc': 1.,
+                  'threads':8
+#		  'non linear': 'halofit'
+		  }
+#NOTE: If putting 'sBBN file' and 'P_k_max_1/Mpc' here, one should make sure to use the same choices when running MontePython 
+# later with the last trained network, as this can impact the posteriors of the derived parameters YHe and sigma8 
+
+#bestfit_guesses = {'parameter': value}  # Guesses for bestfit for parameters
+bestfit_guesses = {'omega_b': 0.022604,
+                   'omega_cdm': 0.11694,
+                   'H0': 68.50,
+                   'ln10^{10}A_s': 3.0565,
+                   'n_s': 0.9714,
+                   'tau_reio': 0.0631,
+                   'm_ncdm_lightest': 0.002,
+                   'log10Gamma_nu': 2.81
+                   }
+#NOTE: One can take bestfit values from a previously converged MCMC run for datasets of interest
+# the ones shown here come from a full Planck+Lens+DESI run
+
+sigma_guesses   = {'m_ncdm_lightest': 0.018,
+                   'log10Gamma_nu': 0.8
+                   }  
+
+prior_ranges     = parameters            # Prior ranges for mcmc sampling. A dictionary
+                                         # in the same form as parameters
+
+#log_priors      = []                    # List of parameter names to be sampled
+                                         # with a logarithmic prior
+
+sampling      = 'hypersphere'
+#sampling      = 'iterative'    # Sampling of training data can be done with the
+                               # methods 'lhc' and 'iterative'. Some parameters
+                               # are only usable wth the iterative method
+
+#mcmc_sampler  = 'montepython'  # mcmc sampler to use in iterations (cobaya or montepython)
+
+#initial_model    = None           # Name of initial model to start the iterations
+
+#initial_sampling = 'hypersphere'  # initial configuration of training data - 'lhc', 'hypersphere' or 'pickle'
+
+#mcmc_tol      = 0.01           # Tolerance of R-1 values for individual mcmc runs
+
+#iter_tol      = 0.1            # Tolerance of R-1 values for subsequent iterations
+
+#N_max_points  = 2e+4           # The maximum number of points to take from each iteration
+
+#keep_first_iteration = False   # Whether to keep data from first iteration (usually bad)
+
+max_time_for_theory = 86400
+
+#sampling_likelihoods = ['Planck_lite','Planck_lowl_EE', 'Planck_lowl_TT','Planck_lensing', 'bao_DESI_Y3_DA_DH', 'bao_DESI_Y3_DV']
+#NOTE: a priori one could use full Planck likelihoods to determine sampling regions, but one should  change the file  
+# mcmc_plugin/mp_param_templates/connect_lite.param.template by adding the corresponding nuisance pars (right now it only has A_planck,
+# needed for Planck_lite). However, it should be enough to use Planck_lite just to determine the sampling regions, 
+# later one could run MCMC for the latest trained model using full Planck likelihoods.
+# I also checked that for a Planck+DESI MCMC run it's better to include DESI as part of the sampling lks 
+
+### Additional parameters for hypersphere sampling (when either 'sampling' or 'initial_sampling' is 'hypersphere') ###
+hypersphere_surface  = False       # Whether or not to just sample from the surface of the hypersphere
+#hypersphere_covmat   = None        # Path to covariance matrix to align hypersphere along axes of correlation - same format as MontePython
+#hypersphere_covmat = '/home/abellan/montepython_public/chains/Pl18TTTEEE_lens_bao_DESIY3_Mnu_dec_toDR/Pl18TTTEEE_lens_bao_DESIY3_Mnu_dec_toDR_v2.covmat'
+hypersphere_covmat = '/home/abellan/montepython_public/chains/Pl18TTTEEE_lens_bao_DESIY3_Mnu_B2/Pl18TTTEEE_lens_bao_DESIY3_Mnu_B2_v2.covmat'
+
+#NOTE: I noticed that using covmat for initial hypersphere sampling is helpful, here we pass one from a full Planck+Lens+DESI run
+
+#resume_iterations = True # in case we want to restart from last iteration
+
+#########---------- Saving parameters ----------#########
+
+jobname = 'dncdm2_to_ncdm_DR_B2_Pl_DESIY3'      # Name job and output folder
+
+save_name = 'dncdm2_to_ncdm_DR_B2_Pl_DESIY3_network'   # Name of trained models
+
+overwrite_model = False      # Whether or not to overwrite model names or to append a suffix
+
+jobname = 'dncdm2_to_ncdm_DR_B2_Pl_DESIY3'
