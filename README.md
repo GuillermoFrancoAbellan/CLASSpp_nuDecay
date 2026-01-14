@@ -26,6 +26,7 @@ The folder `CONNECT_emulator` contains files relevant for the neural network emu
 Finally, the file `LCDMnu_negative.ini` contains information on how to specify negative neutrino masses as done in [2407.10965](https://arxiv.org/abs/2407.10965) (only relevant for stable neutrinos if one wants to quantify the tension between cosmological and oscillation data).
 
 Any questions or comments may be directed to g.francoabellan@gmail.com or nicola.terzaghi@gmail.com.
+
 Please cite the papers [2510.15818](https://arxiv.org/abs/2510.15818) and [2601.04312](https://arxiv.org/abs/2601.04312) if you use this code for publications.
 
 ------- THE REST IS THE ORIGINAL CLASS README -------
