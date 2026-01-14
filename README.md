@@ -4,7 +4,9 @@ CLASS++ Implementation of decaying neutrinos to dark radiation and lighter neutr
 Authors: Guillermo Franco Abellán and Nicola Terzaghi.
 
 This code allows to compute the effects of neutrinos decaying non-relativistically into dark radiation (DR) and lighter neutrinos in a manner
-consistent with the mass splittings from oscillation data, as detailed in [2510.15818](https://arxiv.org/abs/2510.15818) and [2601.04312](https://arxiv.org/abs/2601.04312). It is based on a modification of [CLASS++](https://github.com/AarhusCosmology/CLASSpp_public), a version of [CLASS](https://github.com/lesgourg/class_public) (Julien Lesgourgues, Thomas Tram) written in C++ that was developed by Emil Brinch Holm and Thomas Tram in [2205.13628](https://arxiv.org/abs/2205.13628) to model the effects of warm dark matter (WDM) decaying non-relativistically into DR.
+consistent with the mass splittings from oscillation data, as detailed in [2510.15818](https://arxiv.org/abs/2510.15818) and [2601.04312](https://arxiv.org/abs/2601.04312).
+
+It is based on a modification of [CLASS++](https://github.com/AarhusCosmology/CLASSpp_public), a version of [CLASS](https://github.com/lesgourg/class_public) (Julien Lesgourgues, Thomas Tram) written in C++ that was developed by Emil Brinch Holm and Thomas Tram in [2205.13628](https://arxiv.org/abs/2205.13628) to model the effects of warm dark matter (WDM) decaying non-relativistically into DR.
 
 For information on how to run the code, see the input files:
 
@@ -22,12 +24,11 @@ massless and massive neutrinos, respectively. The second file allows to compute 
 The folder `CNB_calculations` contains Jupyter notebooks and auxiliary files that allow to reproduce the plots in the preprint
 [2510.15818](https://arxiv.org/abs/2510.15818). In addition, the notebook `plot_PSD_evolution.ipynb` allows to generate a gif showing the evolution of the phase-space distribution for the parent and daughter neutrinos.
 
-The folder `CONNECT_emulator` contains files relevant for the neural network emulators of various neutrino decay scenarios, which were developed using the [CONNECT](https://github.com/AarhusCosmology/connect_public) framework (Andreas Nygaard, Thomas Tram). In particular, it contains the training data and the trained networks that were used to produce the main results of the preprint [2601.04312](https://arxiv.org/abs/2601.04312).
+The folder `CONNECT_emulator` contains files relevant for the neural network emulators of various neutrino decay scenarios, which were developed using the [CONNECT](https://github.com/AarhusCosmology/connect_public) framework (Andreas Nygaard, Thomas Tram). In particular, it contains the the trained emulators that were used to produce the main results of the preprint [2601.04312](https://arxiv.org/abs/2601.04312).
 
 Finally, the file `LCDMnu_negative.ini` contains information on how to specify negative neutrino masses as done in [2407.10965](https://arxiv.org/abs/2407.10965) (only relevant for stable neutrinos if one wants to quantify the tension between cosmological and oscillation data).
 
 Any questions or comments may be directed to g.francoabellan@gmail.com or nicola.terzaghi@gmail.com.
-
 Please cite the papers [2510.15818](https://arxiv.org/abs/2510.15818) and [2601.04312](https://arxiv.org/abs/2601.04312) if you use this code for publications.
 
 ------- THE REST IS THE ORIGINAL CLASS README -------
