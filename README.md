@@ -4,9 +4,7 @@ CLASS++ Implementation of decaying neutrinos to dark radiation and lighter neutr
 Authors: Guillermo Franco Abellán and Nicola Terzaghi.
 
 This code allows to compute the effects of neutrinos decaying non-relativistically into dark radiation (DR) and lighter neutrinos in a manner
-consistent with the mass splittings from oscillation data, as detailed in the preprints 2510.15818 and 2601.04312. It is based on a modification of
-CLASS++, a version of CLASS (Julien Lesgourgues, Thomas Tram) written in C++ that was developed by Emil Brinch Holm and Thomas Tram in
-2205.13628 to model the effects of warm dark matter (WDM) decaying non-relativistically into DR.
+consistent with the mass splittings from oscillation data, as detailed in [arXiv:2510.15818](https://arxiv.org/abs/2510.15818) and [arXiv:2601.04312](https://arxiv.org/abs/2601.04312). It is based on a modification of [CLASS++](https://github.com/AarhusCosmology/CLASSpp_public), a version of [CLASS](https://github.com/lesgourg/class_public) (Julien Lesgourgues, Thomas Tram) written in C++ that was developed by Emil Brinch Holm and Thomas Tram in [arXiv:2205.13628](https://arxiv.org/abs/2205.13628) to model the effects of warm dark matter (WDM) decaying non-relativistically into DR.
 
 For information on how to run the code, see the input files:
 
