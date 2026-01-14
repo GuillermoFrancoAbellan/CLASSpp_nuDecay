@@ -22,15 +22,15 @@ massless and massive neutrinos, respectively. The second file allows to compute 
 `LCDMnu_dec_toNCDM.ini`, i.e. those with the same neutrino mass spectrum but in the absence of decays.
 
 The folder `CNB_calculations` contains Jupyter notebooks and auxiliary files that allow to reproduce the plots in the preprint
-[https://arxiv.org/abs/2510.15818](arXiv:2510.15818). In addition, the notebook `plot_PSD_evolution.ipynb` allows to generate a gif showing the evolution of the phase-space distribution for the parent and daughter neutrinos.
+[arXiv:2510.15818](https://arxiv.org/abs/2510.15818). In addition, the notebook `plot_PSD_evolution.ipynb` allows to generate a gif showing the evolution of the phase-space distribution for the parent and daughter neutrinos.
 
-The folder `CONNECT_emulator` contains files relevant for the neural network emulators of various neutrino decay scenarios, which were developed using the [https://github.com/AarhusCosmology/connect_public](CONNECT) framework (Andreas Nygaard, Thomas Tram). In particular, it contains the training data and the trained networks that were used to produce the main results of the preprint [https://arxiv.org/abs/2601.04312](arXiv:2601.04312).
+The folder `CONNECT_emulator` contains files relevant for the neural network emulators of various neutrino decay scenarios, which were developed using the [CONNECT](https://github.com/AarhusCosmology/connect_public) framework (Andreas Nygaard, Thomas Tram). In particular, it contains the training data and the trained networks that were used to produce the main results of the preprint [arXiv:2601.04312](https://arxiv.org/abs/2601.04312).
 
 Finally, the file `LCDMnu_negative.ini` contains information on how to specify negative neutrino masses as done in 2407.10965 (only relevant for stable neutrinos if one wants to quantify the tension between cosmological and oscillation data).
 
 Any questions or comments may be directed to g.francoabellan@gmail.com or nicola.terzaghi@gmail.com.
 
-Please cite the papers [https://arxiv.org/abs/2510.15818](arXiv:2510.15818) and [https://arxiv.org/abs/2601.04312](arXiv:2601.04312) if you use this code for publications.
+Please cite the papers [arXiv:2510.15818](https://arxiv.org/abs/2510.15818) and [arXiv:2601.04312](https://arxiv.org/abs/2601.04312) if you use this code for publications.
 
 ------- THE REST IS THE ORIGINAL CLASS README -------
 
